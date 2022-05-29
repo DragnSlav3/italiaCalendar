@@ -34,6 +34,9 @@ function importarEventos(recordatorio) {
       if (color == "" && status == "no" && !recordatorio) {
         assign_color(evento);
       }
+      if (color == "11" && status != "no" && !recordatorio) {
+        evento.setColor("0");
+      }
       if (status == "no" && notes == "" && recordatorio){
         sendReminderToSlack(evento);
       }
@@ -89,7 +92,8 @@ function assign_color(event) {
 
 function sendHelpToSlack(event) { //Falta editar
   var name = event.getTitle().slice(5, 20);
-  const message = name +' tiene un evento al que no puede asistir <' + URL + '|Ver Calendario>';
+  var sDate = event.getStartTime();
+  const message = name +' tiene un evento al que no puede asistir el ' + sDate + ' <' + URL + '|Ver Calendario>';
   sendSlackMessage(message);
 }
 
